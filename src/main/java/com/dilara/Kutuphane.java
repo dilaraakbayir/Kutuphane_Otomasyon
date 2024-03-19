@@ -5,9 +5,25 @@ import java.util.stream.Collectors;
 
 public class Kutuphane implements IKutuphane{
 
-    private List<Kitap> kitaplar = new ArrayList<>();
-    private List<Uye> uyeler = new ArrayList<>();
+    private static List<Kitap> kitaplar = new ArrayList<>();
+    private static List<Uye> uyeler = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
+
+    public static List<Kitap> getKitaplar() {
+        return kitaplar;
+    }
+
+    public void setKitaplar(List<Kitap> kitaplar) {
+        this.kitaplar = kitaplar;
+    }
+
+    public static List<Uye> getUyeler() {
+        return uyeler;
+    }
+
+    public void setUyeler(List<Uye> uyeler) {
+        this.uyeler = uyeler;
+    }
 
     @Override
     public void kitapEkle(){
@@ -70,9 +86,9 @@ public class Kutuphane implements IKutuphane{
 
             System.out.println(oduncVerilecekKitap.get().getBaslik()+ " adlı kitap ödünç verildi.");
             durumuGuncelle();
-            }catch(Exception e){
-                System.out.println("Id si girilen kitap uygun değildir.");
-            }
+        }catch(Exception e){
+            System.out.println("Id si girilen kitap uygun değildir.");
+        }
 
 
 
@@ -170,7 +186,6 @@ public class Kutuphane implements IKutuphane{
     }
 
     public int kutuphaneMenu(){ //kütüphane görevlisinin kullandığı sistem
-        System.out.println("--- Kutuphane Otomasyonuna Hosgeldiniz ---");
         System.out.println("Lütfen Yapmak İstediğiniz İşlemi Seçiniz");
         System.out.println("""
                     1- Üye Kaydet
@@ -181,6 +196,41 @@ public class Kutuphane implements IKutuphane{
                     6- Kitap Ödünç Ver
                     7- Kitap İade Al
                     0- C I K I S
+                """);
+        int secim = scanner.nextInt();
+        scanner.nextLine();
+        return secim;
+    }
+
+    public void mainApp(){
+        int secim;
+        do {
+            secim = mainMenu();
+            switch (secim) {
+                case 1:
+                    Uye.uyeGirisi();
+                    break;
+                case 2:
+                    kutuphaneApp();
+                    break;
+                case 0:
+                    System.out.println("Çıkış Yapılıyor");
+                    break;
+                default:
+                    System.out.println("Lütfen doğru bir seçim yapınız");
+                    break;
+            }
+        }while (secim!=0);
+    }
+
+    public int mainMenu(){
+        System.out.println("--- Kutuphane Otomasyonuna Hosgeldiniz ---");
+        System.out.println("Lütfen Yapmak İstediğiniz İşlemi Seçiniz");
+        System.out.println("""
+                        1- Üye Girisi
+                        2- Kütüphane Görevlisi Girisi
+                        0- C I K I S
+                
                 """);
         int secim = scanner.nextInt();
         scanner.nextLine();
